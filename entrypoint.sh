@@ -129,15 +129,28 @@ fi
 
 # start services
 service php7.0-fpm start
-service nginx start
-service kopano-server start
 service kopano-dagent start
 service kopano-spooler start
 service kopano-gateway start
 service kopano-ical start
-#service kopano-monitor start
 service kopano-search start
+service nginx start
 service cron start
+
+# start kopano-server (restart till database is available)
+statuscode=3
+while [  $statuscode -ne 0 ]
+do
+	service kopano-server start
+	service kopano-server status
+	statuscode=$?
+
+	echo "Returncode: " $statuscode
+
+	if [ $statuscode -ne 0 ];then
+		tail -n 4 /var/log/kopano/server.log
+	fi
+done
 
 # send log output to docker sstout
 tail -f  /var/log/kopano/* /var/log/nginx/* /var/log/z-push/*
