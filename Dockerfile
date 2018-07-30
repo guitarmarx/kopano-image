@@ -16,12 +16,11 @@ ENV	DOMAIN="" \
 	SMTP_SERVER=""\
 	DEBIAN_FRONTEND=noninteractive \
 	NGINX_API_KEY="" \
-	TIMEZONE="Europe\/Berlin" \
+	TIMEZONE="Europe/Berlin" \
 	PHP_UPLOAD_MAX_FILESIZE="2030M" \
 	PHP_POST_MAX_SIZE="2040M" \
 	PHP_MEMORY_LIMIT="2048M" \
-	FPM_MAX_CHILDREN=40 \
-	TZ=Europe/Berlin
+	FPM_MAX_CHILDREN=40
 
 # gerneral packages
 RUN apt update \
@@ -67,7 +66,7 @@ ADD templates /tmp/templates
 ADD entrypoint.sh /tmp
 
 # set time
-RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone \
+RUN ln -snf /usr/share/zoneinfo/$TIMEZONE /etc/localtime && echo $TIMEZONE > /etc/timezone \
 	&& chmod 777 /tmp/entrypoint.sh
 
 ENTRYPOINT ["/tmp/entrypoint.sh"]

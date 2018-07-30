@@ -8,5 +8,5 @@ SHELL=/bin/sh
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 
 # m h dom mon dow user  command
-0  23    * * *   root python /tmp/templates/cron/exportJunkMailsFromLastDay.py
+0  1    * * *   root python /tmp/templates/cron/exportJunkMailsFromLastDay.py
 #

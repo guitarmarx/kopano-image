@@ -95,6 +95,9 @@ chown -R www-data:www-data /var/lib/z-push
 chown -R www-data:www-data /var/log/z-push
 
 # edit z-push.conf.php
+
+="Europe\/Berlin"
+TIMEZONE=${TIMEZONE//\//\\/}
 sed -i "s/('TIMEZONE', '')/('TIMEZONE', '$TIMEZONE');/g" /etc/z-push/z-push.conf.php
 sed -i "s/('STATE_MACHINE'.*/('STATE_MACHINE', 'SQL');/g" /etc/z-push/z-push.conf.php
 # edit state-sql.conf.php
