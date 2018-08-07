@@ -20,10 +20,7 @@ ENV	DOMAIN="" \
 	PHP_UPLOAD_MAX_FILESIZE="2030M" \
 	PHP_POST_MAX_SIZE="2040M" \
 	PHP_MEMORY_LIMIT="2048M" \
-	FPM_MAX_CHILDREN=40 \
-	LANG=de_DE.UTF-8 \
-	LANGUAGE=de_DE:de \
-	LC_ALL=de_DE.UTF-8
+	FPM_MAX_CHILDREN=40
 
 # gerneral packages
 RUN apt update \
@@ -71,10 +68,6 @@ ADD entrypoint.sh /tmp
 # set time
 RUN ln -snf /usr/share/zoneinfo/$TIMEZONE /etc/localtime && echo $TIMEZONE > /etc/timezone \
 	&& chmod 777 /tmp/entrypoint.sh
-
-#set locale
-RUN sed -i -e "s/# $LANG UTF-8/$LANG UTF-8/" /etc/locale.gen && \
-	locale-gen
 
 ENTRYPOINT ["/tmp/entrypoint.sh"]
 

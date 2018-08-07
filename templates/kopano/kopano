@@ -3,7 +3,7 @@
 #
 
 # Common defaults for all daemons
-KOPANO_LOCALE="de_DE.UTF-8"
+KOPANO_LOCALE="C"
 
 
 ########################################
@@ -35,7 +35,7 @@ SERVER_CONFIG=/etc/kopano/server.cfg
 SERVER_OPTS=""
 
 # Locale to export to userscripts
-KOPANO_USERSCRIPT_LOCALE="de_DE.UTF-8"
+KOPANO_USERSCRIPT_LOCALE="C"
 
 
 ########################################
