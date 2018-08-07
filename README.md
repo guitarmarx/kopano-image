@@ -73,6 +73,9 @@ PHP_UPLOAD_MAX_FILESIZE|[upload_max_filesize](http://php.net/manual/de/ini.core.
 PHP_POST_MAX_SIZE|[post_max_size](http://php.net/manual/de/ini.core.php#ini.post-max-size)| 2040M |
 PHP_MEMORY_LIMIT|[memory_limit](http://php.net/manual/de/ini.core.php#ini.memory-limit)| 2048M |
 FPM_MAX_CHILDREN|[max_children](http://php.net/manual/en/install.fpm.configuration.php)|40
+LANG|Language configuration|de_DE.UTF-8|
+LANGUAGE|Language configuration|de_DE:de|
+LC_ALL|Language configuration|de_DE.UTF-8|
 
 #### Ports
  The following ports can be exposed:
