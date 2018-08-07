@@ -53,6 +53,7 @@ RUN echo "deb https://serial:$KOPANO_SERIAL@download.kopano.io/supported/core:/f
 	&& apt install -y kopano-webapp-plugin-filepreviewer kopano-webapp-plugin-files kopano-webapp-plugin-filesbackend-owncloud  \
 	&& apt install -y kopano-webapp-plugin-titlecounter kopano-webapp-plugin-quickitems kopano-webapp-plugin-folderwidgets kopano-webapp-plugin-mdm \
 	&& apt install -y kopano-webapp-plugin-spell-de-de kopano-webapp-plugin-spell-en kopano-webapp-plugin-webappmanual \
+	&& apt dist-upgrade \
 	&& rm -rf  /var/cache/apt  /var/lib/apt/lists/*
 
 # save config files
