@@ -44,11 +44,21 @@ RUN echo "deb https://serial:$KOPANO_SERIAL@download.kopano.io/supported/core:/f
 	&& echo "deb http://repo.z-hub.io/z-push:/final/Debian_9.0/ /" >>  /etc/apt/sources.list.d/z-push.list \
 	&& curl http://repo.z-hub.io/z-push:/final/Debian_9.0/Release.key | apt-key add - \
 	&& apt update \
-	&& apt install -y z-push-kopano  z-push-state-sql \
-	&& apt install -y kopano-server-packages kopano-webapp \
-	&& apt install -y kopano-webapp-plugin-filepreviewer kopano-webapp-plugin-files kopano-webapp-plugin-filesbackend-owncloud  \
-	&& apt install -y kopano-webapp-plugin-titlecounter kopano-webapp-plugin-quickitems kopano-webapp-plugin-folderwidgets kopano-webapp-plugin-mdm \
-	&& apt install -y kopano-webapp-plugin-spell-de-de kopano-webapp-plugin-spell-en kopano-webapp-plugin-webappmanual \
+	&& apt install -y \
+		kopano-server-packages \
+		kopano-webapp \
+		kopano-webapp-plugin-filepreviewer \
+		kopano-webapp-plugin-files \
+		kopano-webapp-plugin-filesbackend-owncloud \
+		kopano-webapp-plugin-folderwidgets \
+		kopano-webapp-plugin-mdm \
+		kopano-webapp-plugin-quickitems \
+		kopano-webapp-plugin-spell-de-de \
+		kopano-webapp-plugin-spell-en \
+		kopano-webapp-plugin-titlecounter \
+		kopano-webapp-plugin-webappmanual \
+		z-push-kopano \
+		z-push-state-sql \
 	&& rm -rf  /var/cache/apt  /var/lib/apt/lists/*
 
 # save config files
@@ -56,7 +66,6 @@ RUN mkdir -p /tmp/kopano_default/config/ \
 	&& mkdir -p /tmp/kopano_default/plugins/ \
 	&& cp -r /etc/kopano/* /tmp/kopano_default/config/ \
 	&& cp -r /usr/share/kopano-webapp/plugins/* /tmp/kopano_default/plugins/
-
 
 ADD templates /tmp/templates
 ADD entrypoint.sh /tmp
@@ -66,6 +75,3 @@ RUN ln -snf /usr/share/zoneinfo/$TIMEZONE /etc/localtime && echo $TIMEZONE > /et
 	&& chmod 777 /tmp/entrypoint.sh
 
 ENTRYPOINT ["/tmp/entrypoint.sh"]
-
-
-
