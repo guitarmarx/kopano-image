@@ -25,8 +25,17 @@ ENV	DOMAIN="" \
 # gerneral packages
 RUN apt update \
 	&& apt -y dist-upgrade \
-	&& apt install -y curl gnupg2 apt-transport-https vim ssmtp python2.7 cron \
-	&& apt install -y nginx php7.0-fpm php7.0-mysql  \
+	&& apt install -y \
+		apt-transport-https \
+		cron \
+		curl \
+		gnupg2 \
+		nginx \
+		php7.0-fpm \
+		php7.0-mysql  \
+		python2.7 \
+		ssmtp \
+		vim \
 	&& rm -rf  /var/cache/apt  /var/lib/apt/lists/*
 
 #nginx-aplify installation
