@@ -37,13 +37,13 @@ cp -n /tmp/templates/kopano/kopano /etc/default/
 sed -i "s/#server_hostname =.*/server_hostname = $DOMAIN/g" /etc/kopano/gateway.cfg
 
 # edit server.cfg
-sed -i "s/^mysql_host.*/mysql_host = $DB_HOST/g" /etc/kopano/server.cfg
-sed -i "s/^mysql_user.*/mysql_user = $DB_USER/g" /etc/kopano/server.cfg
-sed -i "s/^mysql_password.*/mysql_password = $DB_PASS/g" /etc/kopano/server.cfg
-sed -i "s/^mysql_database.*/mysql_database = $DB_NAME/g" /etc/kopano/server.cfg
+sed -i "s/^.*mysql_host.*=.*/mysql_host = $DB_HOST/g" /etc/kopano/server.cfg
+sed -i "s/^.*mysql_user.*=.*/mysql_user = $DB_USER/g" /etc/kopano/server.cfg
+sed -i "s/^.*mysql_password.*=.*/mysql_password = $DB_PASS/g" /etc/kopano/server.cfg
+sed -i "s/^.*mysql_database.*=.*/mysql_database = $DB_NAME/g" /etc/kopano/server.cfg
 
 # edit spooler.cfg
-sed -i "s/^smtp_server.*/smtp_server = $SMTP_SERVER/g" /etc/kopano/spooler.cfg
+sed -i "s/^.*smtp_server.*=.*/smtp_server = $SMTP_SERVER/g" /etc/kopano/spooler.cfg
 
 # edit kopano-autorepond
 cat /tmp/templates/kopano/kopano-autorespond.sh > /usr/sbin/kopano-autorespond
