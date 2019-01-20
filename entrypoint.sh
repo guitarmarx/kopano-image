@@ -50,6 +50,7 @@ cat /tmp/templates/kopano/kopano-autorespond.sh > /usr/sbin/kopano-autorespond
 
 # create empty log files
 mkdir -p /var/log/kopano/
+chmod 777 /var/log/kopano/
 touch /var/log/kopano/autorespond.log
 touch /var/log/z-push/z-push-error.log
 touch /var/log/z-push/z-push.log
