@@ -6,6 +6,7 @@ EXPOSE 993 80 2003
 
 #has to be specified at build time
 ARG	KOPANO_SERIAL=""
+ARG	DOCKERIZE_VERSION=v0.6.1
 
 ENV	DOMAIN="" \
 	DB_HOST="" \
@@ -17,8 +18,8 @@ ENV	DOMAIN="" \
 	SMTP_SERVER=""\
 	DEBIAN_FRONTEND=noninteractive \
 	NGINX_API_KEY="" \
-	TIMEZONE="Europe/Berlin" \
-	DOCKERIZE_VERSION=v0.6.1
+	TIMEZONE="Europe/Berlin"
+
 
 # gerneral packages
 RUN apt update \
