@@ -1,4 +1,4 @@
-FROM debian:9.4-slim
+FROM debian:9.6-slim
 
 LABEL maintainer="meteorIT GbR Marcus Kastner"
 
@@ -12,15 +12,13 @@ ENV	DOMAIN="" \
 	DB_NAME=kopano \
 	DB_USER=kopano \
 	DB_PASS=kopano \
+	DB_PORT=3306 \
 	DB_NAME_ZPUSH=zpush \
 	SMTP_SERVER=""\
 	DEBIAN_FRONTEND=noninteractive \
 	NGINX_API_KEY="" \
 	TIMEZONE="Europe/Berlin" \
-	PHP_UPLOAD_MAX_FILESIZE="2030M" \
-	PHP_POST_MAX_SIZE="2040M" \
-	PHP_MEMORY_LIMIT="2048M" \
-	FPM_MAX_CHILDREN=40
+	DOCKERIZE_VERSION=v0.6.1
 
 # gerneral packages
 RUN apt update \
@@ -30,12 +28,13 @@ RUN apt update \
 	cron \
 	curl \
 	gnupg2 \
-	nginx \
+	nginx-light \
 	php7.0-fpm \
 	php7.0-mysql  \
 	python2.7 \
 	ssmtp \
 	vim \
+	tar \
 	&& rm -rf  /var/cache/apt  /var/lib/apt/lists/*
 
 #nginx-aplify installation
@@ -65,22 +64,44 @@ RUN echo "deb https://serial:$KOPANO_SERIAL@download.kopano.io/supported/core:/f
 	kopano-webapp-plugin-spell-de-de \
 	kopano-webapp-plugin-spell-en \
 	kopano-webapp-plugin-titlecounter \
-	kopano-webapp-plugin-webappmanual \
 	z-push-kopano \
 	z-push-state-sql \
+	z-push-kopano-gabsync \
 	&& rm -rf  /var/cache/apt  /var/lib/apt/lists/*
 
-# save config files
-RUN mkdir -p /tmp/kopano_default/config/ \
-	&& mkdir -p /tmp/kopano_default/plugins/ \
-	&& cp -r /etc/kopano/* /tmp/kopano_default/config/ \
-	&& cp -r /usr/share/kopano-webapp/plugins/* /tmp/kopano_default/plugins/
 
-ADD templates /tmp/templates
-ADD entrypoint.sh /tmp
+# download dockerize
+RUN curl -L https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz --output /tmp/dockerize.tar.gz  \
+	&& tar -C /usr/local/bin -xzvf dockerize.tar.gz \
+	&& rm dockerize.tar.gz
 
-# set time
+# save config files for later usage
+RUN mkdir -p /srv/kopano_default/config/ \
+	&& mkdir -p /srv/kopano_default/plugins/ \
+	&& cp -r /etc/kopano/* /srv/kopano_default/config/ \
+	&& cp -r /usr/share/kopano-webapp/plugins/* /srv/kopano_default/plugins/
+
+ADD templates /srv/templates
+ADD entrypoint.sh /srv
+
+#edit Config Files
+RUN cp /srv/templates/php/20-kopano.ini /etc/php/7.0/fpm/conf.d/ \
+	&& /srv/templates/php/webapp.conf /etc/php/7.0/fpm/conf.d/ \
+	&& rm /etc/nginx/sites-enabled/* \
+	&& cp /srv/templates/nginx/webapp.conf /etc/nginx/sites-enabled \
+	&& cp /srv/templates/cron/crontab /etc/crontab \
+	&& chown -R www-data:www-data /var/lib/z-push \
+	&& chown -R www-data:www-data /var/log/z-push
+# create log-files
+RUN mkdir -p /var/log/kopano/ \
+	&& chown kopano /var/log/kopano/ \
+	&& touch /var/log/kopano/autorespond.log \
+	&& touch /var/log/z-push/z-push-error.log \
+	&& touch /var/log/z-push/z-push.log
+
+
+# set timezone
 RUN ln -snf /usr/share/zoneinfo/$TIMEZONE /etc/localtime && echo $TIMEZONE > /etc/timezone \
-	&& chmod 777 /tmp/entrypoint.sh
+	&& chmod 777 /srv/entrypoint.sh
 
-ENTRYPOINT ["/tmp/entrypoint.sh"]
+ENTRYPOINT ["/srv/entrypoint.sh"]
