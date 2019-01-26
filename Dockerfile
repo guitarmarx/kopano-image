@@ -87,10 +87,13 @@ ADD entrypoint.sh /srv
 
 #edit Config Files
 RUN cp /srv/templates/php/20-kopano.ini /etc/php/7.0/fpm/conf.d/ \
-	&& /srv/templates/php/webapp.conf /etc/php/7.0/fpm/conf.d/ \
+	&& cp /srv/templates/php/webapp.conf /etc/php/7.0/fpm/conf.d/ \
 	&& rm /etc/nginx/sites-enabled/* \
 	&& cp /srv/templates/nginx/webapp.conf /etc/nginx/sites-enabled \
-	&& cp /srv/templates/cron/crontab /etc/crontab
+	&& cp /srv/templates/cron/crontab /etc/crontab \
+	&& chown -R www-data:www-data /var/lib/z-push \
+	&& chown -R www-data:www-data /var/log/z-push
+
 
 # create log-files
 RUN mkdir -p /var/log/kopano/ \

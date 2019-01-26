@@ -46,9 +46,6 @@ sed -i "s/#FromLineOverride=.*/FromLineOverride=YES/" /etc/ssmtp/ssmtp.conf
 ####################   ZPUSH Config #########################
 #############################################################
 
-chown -R www-data:www-data /var/lib/z-push
-chown -R www-data:www-data /var/log/z-push
-
 # edit z-push.conf.php
 TIMEZONE=${TIMEZONE//\//\\/}
 sed -i "s/('TIMEZONE', '')/('TIMEZONE', '$TIMEZONE');/g" /etc/z-push/z-push.conf.php
