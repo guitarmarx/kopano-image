@@ -74,7 +74,7 @@ RUN echo "deb https://serial:$KOPANO_SERIAL@download.kopano.io/supported/core:/f
 # download dockerize
 RUN curl -L https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-${DOCKERIZE_VERSION}.tar.gz --output /tmp/dockerize.tar.gz  \
 	&& tar -C /usr/local/bin -xzvf /tmp/dockerize.tar.gz \
-	&& rm dockerize.tar.gz
+	&& rm /tmp/dockerize.tar.gz
 
 # save config files for later usage
 RUN mkdir -p /srv/kopano_default/config/ \
