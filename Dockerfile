@@ -90,9 +90,8 @@ RUN cp /srv/templates/php/20-kopano.ini /etc/php/7.0/fpm/conf.d/ \
 	&& /srv/templates/php/webapp.conf /etc/php/7.0/fpm/conf.d/ \
 	&& rm /etc/nginx/sites-enabled/* \
 	&& cp /srv/templates/nginx/webapp.conf /etc/nginx/sites-enabled \
-	&& cp /srv/templates/cron/crontab /etc/crontab \
-	&& chown -R www-data:www-data /var/lib/z-push \
-	&& chown -R www-data:www-data /var/log/z-push
+	&& cp /srv/templates/cron/crontab /etc/crontab
+
 # create log-files
 RUN mkdir -p /var/log/kopano/ \
 	&& chown kopano /var/log/kopano/ \
