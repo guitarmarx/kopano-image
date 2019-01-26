@@ -6,7 +6,6 @@ EXPOSE 993 80 2003
 
 #has to be specified at build time
 ARG	KOPANO_SERIAL=""
-ARG	DOCKERIZE_VERSION=v0.6.1
 
 ENV	DOMAIN="" \
 	DB_HOST="" \
@@ -18,7 +17,8 @@ ENV	DOMAIN="" \
 	SMTP_SERVER=""\
 	DEBIAN_FRONTEND=noninteractive \
 	NGINX_API_KEY="" \
-	TIMEZONE="Europe/Berlin"
+	TIMEZONE="Europe/Berlin" \
+	DOCKERIZE_VERSION=v0.6.1
 
 
 # gerneral packages
@@ -73,7 +73,7 @@ RUN echo "deb https://serial:$KOPANO_SERIAL@download.kopano.io/supported/core:/f
 
 # download dockerize
 RUN curl -L https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-${DOCKERIZE_VERSION}.tar.gz --output /tmp/dockerize.tar.gz  \
-	&& tar -C /usr/local/bin -xzvf dockerize.tar.gz \
+	&& tar -C /usr/local/bin -xzvf /tmp/dockerize.tar.gz \
 	&& rm dockerize.tar.gz
 
 # save config files for later usage
