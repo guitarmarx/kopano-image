@@ -100,7 +100,9 @@ RUN mkdir -p /var/log/kopano/ \
 	&& chown kopano /var/log/kopano/ \
 	&& touch /var/log/kopano/autorespond.log \
 	&& touch /var/log/z-push/z-push-error.log \
-	&& touch /var/log/z-push/z-push.log
+	&& touch /var/log/z-push/z-push.log \
+	&& chmod www-data /var/log/z-push
+
 
 
 # set timezone
