@@ -59,6 +59,8 @@ sed -i "s/('STATE_SQL_PASSWORD'.*/('STATE_SQL_PASSWORD', '$DB_PASS');/g" /etc/z-
 #edit gabsync.conf.php
 sed -i "s/define('USERNAME', '');/define('USERNAME', 'SYSTEM');/g" /etc/z-push/gabsync.conf.php
 
+chmod -R 777 /var/log/z-push
+
 
 #############################################################
 ####################   NGINX Amplify  #######################
