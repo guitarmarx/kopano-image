@@ -101,7 +101,7 @@ RUN mkdir -p /var/log/kopano/ \
 	&& touch /var/log/kopano/autorespond.log \
 	&& touch /var/log/z-push/z-push-error.log \
 	&& touch /var/log/z-push/z-push.log \
-	&& chown www-data /var/log/z-push
+	&& chown -R www-data /var/log/z-push
 
 
 
