@@ -21,9 +21,6 @@ ENV	DOMAIN="" \
 	DOCKERIZE_VERSION=v0.6.1 \
 	LANG=de_DE.UTF-8
 
-# set locale
-RUN sed -i -e "s/# $LANG UTF-8/$LANG UTF-8/" /etc/locale.gen \
-	&& locale-gen
 
 # gerneral packages
 RUN apt update \
@@ -41,6 +38,10 @@ RUN apt update \
 	vim \
 	tar \
 	&& rm -rf  /var/cache/apt  /var/lib/apt/lists/*
+
+# set locale
+RUN sed -i -e "s/# $LANG UTF-8/$LANG UTF-8/" /etc/locale.gen \
+	&& locale-gen
 
 #nginx-aplify installation
 RUN curl -sS -L -O https://github.com/nginxinc/nginx-amplify-agent/raw/master/packages/install.sh \
