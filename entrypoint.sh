@@ -58,7 +58,6 @@ sed -i "s/('STATE_SQL_PASSWORD'.*/('STATE_SQL_PASSWORD', '$DB_PASS');/g" /etc/z-
 
 #edit gabsync.conf.php
 sed -i "s/define('USERNAME', '');/define('USERNAME', 'SYSTEM');/g" /etc/z-push/gabsync.conf.php
-
 chmod -R 777 /var/log/z-push
 
 
@@ -89,12 +88,13 @@ echo "waiting for connection to database ...  "
 dockerize -wait tcp://$DB_HOST:$DB_PORT
 
 service php7.0-fpm start
-service kopano-server start
-service kopano-dagent start
-service kopano-spooler start
-service kopano-gateway start
-service kopano-ical start
-service kopano-search start
+kopano-server
+kopano-dagent -l
+kopano-spooler
+kopano-gateway
+kopano-ical
+kopano-search
+
 service nginx start
 service cron start
 

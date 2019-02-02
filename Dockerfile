@@ -18,8 +18,12 @@ ENV	DOMAIN="" \
 	DEBIAN_FRONTEND=noninteractive \
 	NGINX_API_KEY="" \
 	TIMEZONE="Europe/Berlin" \
-	DOCKERIZE_VERSION=v0.6.1
+	DOCKERIZE_VERSION=v0.6.1 \
+	LANG=de_DE.UTF-8
 
+# set locale
+RUN sed -i -e "s/# $LANG UTF-8/$LANG UTF-8/" /etc/locale.gen \
+	&& locale-gen
 
 # gerneral packages
 RUN apt update \
