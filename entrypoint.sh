@@ -21,7 +21,7 @@ cp -r -n /srv/kopano_default/config/* /etc/kopano/
 cp -r -n /srv/kopano_default/plugins/* /usr/share/kopano-webapp/plugins/
 
 #copy templates to kopnao config folder
-dockerize -template /srv/kopano/config-templates:/etc/kopano
+dockerize -template /srv/templates/kopano/config-templates:/etc/kopano
 
 
 #create default kopano config
