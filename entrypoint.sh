@@ -55,24 +55,6 @@ chmod -R 777 /var/log/z-push
 
 
 #############################################################
-####################   NGINX Amplify  #######################
-#############################################################
-
-# start if nginx_amplify_api_key is set
-if [ ! -z "$NGINX_API_KEY" ]; then
-	# edit amplify config
-	sed -i "s/api_key .*/api_key = $NGINX_API_KEY/g" /etc/amplify-agent/agent.conf
-	sed -i "s/hostname .*/hostname = kopano\.$DOMAIN/g" /etc/amplify-agent/agent.conf
-	sed -i "s/uuid =.*/uuid = 0f2c2dcf00205d45a6eba415b862bba1/g" /etc/amplify-agent/agent.conf
-
-	#start nginx amplify
-	echo "Start nginx amplify"
-	service amplify-agent start
-else
-	echo "Nginx Amplify not started, NGINX_API_KEY not set"
-fi
-
-#############################################################
 ####################   START  ###############################
 #############################################################
 

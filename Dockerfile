@@ -49,13 +49,6 @@ RUN apt update \
 RUN sed -i -e "s/# $LANG UTF-8/$LANG UTF-8/" /etc/locale.gen \
 	&& locale-gen
 
-#nginx-aplify installation
-RUN curl -sS -L -O https://github.com/nginxinc/nginx-amplify-agent/raw/master/packages/install.sh \
-	&& sed -i "s/apt-get/apt-get -y/g" install.sh \
-	&& sed -i "s/service amplify-agent start/service amplify-agent stop/g" install.sh \
-	&& API_KEY=0000 sh ./install.sh \
-	&& rm -rf  /var/cache/apt  /var/lib/apt/lists/*
-
 # kopano installation
 RUN echo "deb https://serial:$KOPANO_SERIAL@download.kopano.io/supported/core:/final/Debian_9.0/ ./"  >> /etc/apt/sources.list.d/kopano-core.list \
 	&& echo "deb https://serial:$KOPANO_SERIAL@download.kopano.io/supported/webapp:/final/Debian_9.0/ ./"  >> /etc/apt/sources.list.d/kopano-core.list \
