@@ -14,6 +14,12 @@ ENV	DOMAIN="" \
 	DB_PASS=kopano \
 	DB_PORT=3306 \
 	DB_NAME_ZPUSH=zpush \
+	ATTACHMENT_STORAGE=files \
+	ATTACHMENT_S3_HOSTNAME="" \
+	ATTACHMENT_S3_PROTOCOL="http" \
+	ATTACHMENT_S3_ACCESS_KEY="" \
+	ATTACHMENT_S3_SECRET_ACCESS_KEY="" \
+	ATTACHMENT_S3_BUCKET_NAME="kopano-attachments" \
 	SMTP_SERVER=""\
 	DEBIAN_FRONTEND=noninteractive \
 	NGINX_API_KEY="" \
@@ -33,7 +39,6 @@ RUN apt update \
 	nginx-light \
 	php7.0-fpm \
 	php7.0-mysql  \
-	python2.7 \
 	ssmtp \
 	vim \
 	tar \
