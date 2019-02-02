@@ -37,6 +37,7 @@ RUN apt update \
 	ssmtp \
 	vim \
 	tar \
+	locales \
 	&& rm -rf  /var/cache/apt  /var/lib/apt/lists/*
 
 # set locale
