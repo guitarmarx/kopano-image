@@ -30,6 +30,7 @@ cp -n /srv/templates/kopano/kopano /etc/default/
 
 # edit kopano-autorepond
 cat /srv/templates/kopano/kopano-autorespond.sh > /usr/sbin/kopano-autorespond
+cp /srv/templates/kopano/kopano-autorespond.py > /usr/sbin/kopano-autorespond.py
 
 # edit ssmtp for autorespond
 sed -i "s/mailhub=.*/mailhub=$SMTP_SERVER/" /etc/ssmtp/ssmtp.conf
@@ -64,9 +65,7 @@ dockerize -wait tcp://$DB_HOST:$DB_PORT
 
 service php7.0-fpm start
 kopano-server
-
-dockerize -wait file:////var/run/kopano/server.sock
-kopano-dagent -l
+kopano-dagent -d
 kopano-spooler
 kopano-gateway
 kopano-ical
