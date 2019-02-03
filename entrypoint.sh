@@ -64,6 +64,8 @@ dockerize -wait tcp://$DB_HOST:$DB_PORT
 
 service php7.0-fpm start
 kopano-server
+
+dockerize -wait file:////var/run/kopano/server.sock
 kopano-dagent -l
 kopano-spooler
 kopano-gateway
