@@ -27,7 +27,8 @@ ENV	DOMAIN="" \
 	TIMEZONE="Europe/Berlin" \
 	DOCKERIZE_VERSION=v0.6.1 \
 	LANG=de_DE.UTF-8 \
-	LC_ALL=de_DE.UTF-8
+	LC_ALL=de_DE.UTF-8 \
+	KOPANO_LOCALE=de_DE.UTF-8
 
 
 
