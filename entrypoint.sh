@@ -64,7 +64,8 @@ echo "waiting for connection to database ...  "
 dockerize -wait tcp://$DB_HOST:$DB_PORT
 
 #load default options
-./etc/default/kopano
+chmod +x  /etc/default/kopano
+. /etc/default/kopano
 
 service php7.0-fpm start
 kopano-server
