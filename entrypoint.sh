@@ -25,7 +25,7 @@ dockerize -template /srv/templates/kopano/config-templates:/etc/kopano
 
 
 #create default kopano config
-cp -n /srv/templates/kopano/kopano /etc/default/
+dockerize -template /srv/templates/kopano/kopano:/etc/default/kopano
 
 
 # edit kopano-autorepond
@@ -62,6 +62,9 @@ chmod -R 777 /var/log/z-push
 # start services
 echo "waiting for connection to database ...  "
 dockerize -wait tcp://$DB_HOST:$DB_PORT
+
+#load default options
+./etc/default/kopano
 
 service php7.0-fpm start
 kopano-server
