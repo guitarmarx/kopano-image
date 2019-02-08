@@ -26,14 +26,17 @@ ENV	DOMAIN="" \
 	NGINX_API_KEY="" \
 	TIMEZONE="Europe/Berlin" \
 	DOCKERIZE_VERSION=v0.6.1 \
-	LANG=de_DE.UTF-8
+	LANG=de_DE.UTF-8 \
+	LC_ALL=de_DE.UTF-8
+
 
 
 # gerneral packages
 RUN apt update \
 	&& apt -y dist-upgrade \
-	&& apt install -y \
+	&& apt install -y --no-install-recommends \
 	apt-transport-https \
+	ca-certificates \
 	cron \
 	curl \
 	gnupg2 \
@@ -58,7 +61,7 @@ RUN echo "deb https://serial:$KOPANO_SERIAL@download.kopano.io/supported/core:/f
 	&& echo "deb http://repo.z-hub.io/z-push:/final/Debian_9.0/ /" >>  /etc/apt/sources.list.d/z-push.list \
 	&& curl http://repo.z-hub.io/z-push:/final/Debian_9.0/Release.key | apt-key add - \
 	&& apt update \
-	&& apt install -y \
+	&& apt install -y  --no-install-recommends \
 	kopano-server-packages \
 	kopano-webapp \
 	kopano-webapp-plugin-filepreviewer \
