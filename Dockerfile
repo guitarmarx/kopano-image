@@ -76,6 +76,7 @@ RUN echo "deb https://serial:$KOPANO_SERIAL@download.kopano.io/supported/core:/f
 	z-push-kopano \
 	z-push-state-sql \
 	z-push-kopano-gabsync \
+	python-kopano \
 	&& rm -rf  /var/cache/apt  /var/lib/apt/lists/*
 
 

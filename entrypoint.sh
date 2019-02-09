@@ -67,6 +67,8 @@ dockerize -wait tcp://$DB_HOST:$DB_PORT
 chmod +x  /etc/default/kopano
 . /etc/default/kopano
 
+export LC_ALL=$LANG
+
 service php7.0-fpm start
 kopano-server
 kopano-dagent -d
