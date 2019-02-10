@@ -23,13 +23,9 @@ ENV	DOMAIN="" \
 	LOG_LEVEL=3 \
 	SMTP_SERVER=""\
 	DEBIAN_FRONTEND=noninteractive \
-	NGINX_API_KEY="" \
 	TIMEZONE="Europe/Berlin" \
 	DOCKERIZE_VERSION=v0.6.1 \
-	LANG=de_DE.UTF-8 \
-	KOPANO_LOCALE=de_DE.UTF-8
-
-
+	LANG=de_DE.UTF-8
 
 # gerneral packages
 RUN apt update \
@@ -40,13 +36,12 @@ RUN apt update \
 	cron \
 	curl \
 	gnupg2 \
-	nginx-light \
-	php7.0-fpm \
-	php7.0-mysql  \
 	ssmtp \
 	vim \
 	tar \
 	locales \
+	apache2 \
+	libapache2-mod-php7.0 \
 	&& rm -rf  /var/cache/apt  /var/lib/apt/lists/*
 
 # set locale
@@ -95,10 +90,9 @@ ADD templates /srv/templates
 ADD entrypoint.sh /srv
 
 #edit Config Files
-RUN cp /srv/templates/php/20-kopano.ini /etc/php/7.0/fpm/conf.d/ \
-	&& cp /srv/templates/php/webapp.conf /etc/php/7.0/fpm/conf.d/ \
-	&& rm /etc/nginx/sites-enabled/* \
-	&& cp /srv/templates/nginx/webapp.conf /etc/nginx/sites-enabled \
+RUN ln -s /etc/apache2/sites-available/kopano-webapp.conf /etc/apache2/sites-enabled/kopano-webapp.conf \
+	&& sed -i "s|LANG.*|LANG=$LANG|g" /etc/apache2/envvars \
+	&& phpenmod kopano \
 	&& cp /srv/templates/cron/crontab /etc/crontab \
 	&& chown -R www-data:www-data /var/lib/z-push \
 	&& chown -R www-data:www-data /var/log/z-push
