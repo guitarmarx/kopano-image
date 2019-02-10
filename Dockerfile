@@ -37,7 +37,6 @@ RUN apt update \
 	cron \
 	curl \
 	gnupg2 \
-	ssmtp \
 	vim \
 	tar \
 	locales \

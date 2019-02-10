@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+
 from __future__ import print_function
 
 import kopano
@@ -72,7 +73,7 @@ def main():
     config_dict.update(CONFIG)
     config = kopano.Config(config_dict, options=options, service="autorespond")
     log = logger("autorespond", options=options, config=config)
-    server = kopano.server(options=options, config=config)
+    server = kopano.Server(options=options, config=config, parse_args=False)
 
     (from_, to, subject, username, msg_file) = args
     (to_me, bcc_me, cc_me) = (

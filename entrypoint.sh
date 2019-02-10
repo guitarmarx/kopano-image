@@ -16,10 +16,6 @@ dockerize -template /srv/templates/kopano/config-templates:/etc/kopano
 cat /srv/templates/kopano/kopano-autorespond.py > /usr/sbin/kopano-autorespond
 
 
-# edit ssmtp for autorespond
-sed -i "s/mailhub=.*/mailhub=$SMTP_SERVER/" /etc/ssmtp/ssmtp.conf
-sed -i "s/#FromLineOverride=.*/FromLineOverride=YES/" /etc/ssmtp/ssmtp.conf
-
 #############################################################
 ####################   ZPUSH Config #########################
 #############################################################
