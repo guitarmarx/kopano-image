@@ -51,7 +51,6 @@ export LC_ALL=$LANG
 export KOPANO_LOCALE=$LANG
 export KOPANO_USERSCRIPT_LOCALE=$LANG
 
-service php7.0-fpm start
 kopano-server
 kopano-dagent -d
 kopano-spooler
@@ -63,4 +62,4 @@ service apache2 start
 service cron start
 
 # send log output to docker sstout
-tail -f  /var/log/kopano/* /var/log/nginx/* /var/log/z-push/*
+tail -f  /var/log/kopano/* /var/log/apache2/* /var/log/z-push/*
