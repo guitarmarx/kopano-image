@@ -15,6 +15,12 @@ dockerize -template /srv/templates/kopano/config-templates:/etc/kopano
 # edit kopano-autorepond
 cat /srv/templates/kopano/kopano-autorespond.py > /usr/sbin/kopano-autorespond
 
+# edit kopano-localize-folders
+sed -i "s|import sys|import sys\nreload(sys)\nsys.setdefaultencoding('UTF8')|g" /usr/sbin/kopano-localize-folders
+
+# edit Apache Alias
+sed -i "s|Alias.*|Alias / /usr/share/kopano-webapp/|g" /etc/apache2/sites-available/kopano-webapp.conf
+
 
 #############################################################
 ####################   ZPUSH Config #########################
@@ -31,13 +37,6 @@ dockerize -template /srv/templates/z-push/state-sql.conf.php:/etc/z-push/state-s
 #edit gabsync.conf.php
 sed -i "s/define('USERNAME', '');/define('USERNAME', 'SYSTEM');/g" /etc/z-push/gabsync.conf.php
 chmod -R 777 /var/log/z-push
-
-#############################################################
-####################   ZPUSH Config #########################
-#############################################################
-
-# edit kopano-localize-folders
-sed -i "s|import sys|import sys\nreload(sys)\nsys.setdefaultencoding('UTF8')|g" /usr/sbin/kopano-localize-folders
 
 
 #############################################################

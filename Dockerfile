@@ -69,6 +69,7 @@ RUN echo "deb https://serial:$KOPANO_SERIAL@download.kopano.io/supported/core:/f
 	kopano-webapp-plugin-spell-en \
 	kopano-webapp-plugin-titlecounter \
 	z-push-kopano \
+	z-push-config-apache \
 	z-push-state-sql \
 	z-push-kopano-gabsync \
 	python-kopano \
