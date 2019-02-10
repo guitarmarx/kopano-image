@@ -90,8 +90,7 @@ ADD templates /srv/templates
 ADD entrypoint.sh /srv
 
 #edit Config Files
-RUN ln -s /etc/apache2/sites-available/kopano-webapp.conf /etc/apache2/sites-enabled/kopano-webapp.conf \
-	&& sed -i "s|LANG.*|LANG=$LANG|g" /etc/apache2/envvars \
+RUN sed -i "s|LANG.*|LANG=$LANG|g" /etc/apache2/envvars \
 	&& phpenmod kopano \
 	&& cp /srv/templates/cron/crontab /etc/crontab \
 	&& chown -R www-data:www-data /var/lib/z-push \
