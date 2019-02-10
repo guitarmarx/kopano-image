@@ -1,5 +1,4 @@
-#!@PYTHON@
-# SPDX-License-Identifier: AGPL-3.0-or-later
+#!/usr/bin/env python3
 
 from __future__ import print_function
 
@@ -26,6 +25,7 @@ CONFIG = {
 
 user_blacklist = ["mailer-daemon", "postmaster", "root"]
 
+
 def in_blacklist(log, from_, to):
     short_from = from_.split("@")[0]
     short_to = to.split("@")[0]
@@ -36,10 +36,12 @@ def in_blacklist(log, from_, to):
 
     return False
 
+
 def send_ooo(server, username, msg, copy_to_sentmail):
     outbox = server.user(username).outbox
     item = outbox.create_item(eml=msg)
     item.send(copy_to_sentmail=copy_to_sentmail)
+
 
 def check_time(senddb, timelimit, username, to):
     with closing(bsddb.btopen(senddb, 'c')) as db:
@@ -50,13 +52,16 @@ def check_time(senddb, timelimit, username, to):
                 return True
     return False
 
+
 def add_time(senddb, username, to):
     with closing(bsddb.btopen(senddb, 'c')) as db:
         key = (username + ":" + to).encode('utf8')
         db[key] = str(int(time.time()))
 
+
 def main():
-    parser = kopano.parser("cskp", usage="Usage: %prog [options] from to subject username msgfile")
+    parser = kopano.parser(
+        "cskp", usage="Usage: %prog [options] from to subject username msgfile")
     options, args = parser.parse_args()
 
     if len(args) != 5:
@@ -67,7 +72,7 @@ def main():
     config_dict.update(CONFIG)
     config = kopano.Config(config_dict, options=options, service="autorespond")
     log = logger("autorespond", options=options, config=config)
-    server = kopano.Server(options=options, config=config, parse_args=False)
+    server = kopano.server(options=options, config=config)
 
     (from_, to, subject, username, msg_file) = args
     (to_me, bcc_me, cc_me) = (
@@ -105,6 +110,7 @@ def main():
         add_time(config["senddb"], username, to)
         send_ooo(server, username, msg, config["copy_to_sentmail"])
         log.info("Sent OOO to %s (username %s)", to, username)
+
 
 if __name__ == '__main__':
     main()

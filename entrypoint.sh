@@ -1,6 +1,7 @@
 #!/bin/bash
 
-###################################################
+
+#############################################################
 #################   KOPANO Config ###########################
 #############################################################
 
@@ -12,8 +13,8 @@ cp -r -n /srv/kopano_default/plugins/* /usr/share/kopano-webapp/plugins/
 dockerize -template /srv/templates/kopano/config-templates:/etc/kopano
 
 # edit kopano-autorepond
-cat /srv/templates/kopano/kopano-autorespond.sh > /usr/sbin/kopano-autorespond
-cp /srv/templates/kopano/kopano-autorespond.py > /usr/sbin/kopano-autorespond.py
+cat /srv/templates/kopano/kopano-autorespond.py > /usr/sbin/kopano-autorespond
+
 
 # edit ssmtp for autorespond
 sed -i "s/mailhub=.*/mailhub=$SMTP_SERVER/" /etc/ssmtp/ssmtp.conf
@@ -36,6 +37,14 @@ sed -i "s/define('USERNAME', '');/define('USERNAME', 'SYSTEM');/g" /etc/z-push/g
 chmod -R 777 /var/log/z-push
 
 #############################################################
+####################   ZPUSH Config #########################
+#############################################################
+
+# edit kopano-localize-folders
+sed -i "s|import sys|import sys\nreload(sys)\nsys.setdefaultencoding('UTF8')|g" /usr/sbin/kopano-localize-folders
+
+
+#############################################################
 ####################   START  ###############################
 #############################################################
 
@@ -55,7 +64,7 @@ kopano-gateway
 kopano-ical
 kopano-search
 
-service nginx start
+service apache2 start
 service cron start
 
 # send log output to docker sstout

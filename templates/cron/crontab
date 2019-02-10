@@ -9,4 +9,5 @@ PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 
 # m h dom mon dow user  command
 0  1    * * *   root python /tmp/templates/cron/exportJunkMailsFromLastDay.py
+0  1    * * *   root yes | z-push-gabsync -a clear-all | z-push-gabsync -a sync > /var/log/z-push/gab-sync.log
 #

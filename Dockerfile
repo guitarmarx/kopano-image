@@ -22,6 +22,7 @@ ENV	DOMAIN="" \
 	ATTACHMENT_S3_BUCKET_NAME="kopano-attachments" \
 	LOG_LEVEL=3 \
 	SMTP_SERVER=""\
+	MESSAGE_TO_ME=True \
 	DEBIAN_FRONTEND=noninteractive \
 	TIMEZONE="Europe/Berlin" \
 	DOCKERIZE_VERSION=v0.6.1 \
