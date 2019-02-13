@@ -6,6 +6,7 @@
 #############################################################
 
 # copy default config files (necessary to recreate config folder when bind as docker volume)
+cp -r -n /srv/kopano_default/config/* /etc/kopano/
 cp -r -n /srv/kopano_default/plugins/* /usr/share/kopano-webapp/plugins/
 
 #copy templates to kopnao config folder

@@ -83,7 +83,9 @@ RUN curl -L https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VE
 	&& rm /tmp/dockerize.tar.gz
 
 # save config files for later usage
-RUN mkdir -p /srv/kopano_default/plugins/ \
+RUN mkdir -p /srv/kopano_default/config/ \
+	&& mkdir -p /srv/kopano_default/plugins/ \
+	&& cp -r /etc/kopano/* /srv/kopano_default/config/ \
 	&& cp -r /usr/share/kopano-webapp/plugins/* /srv/kopano_default/plugins/
 
 ADD templates /srv/templates
