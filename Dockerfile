@@ -17,6 +17,7 @@ ENV	DOMAIN="" \
 	ATTACHMENT_STORAGE=files \
 	ATTACHMENT_S3_HOSTNAME="" \
 	ATTACHMENT_S3_PROTOCOL="http" \
+	ATTACHMENT_STORAGE="/var/lib/kopano/attachments" \
 	ATTACHMENT_S3_ACCESS_KEY="" \
 	ATTACHMENT_S3_SECRET_ACCESS_KEY="" \
 	ATTACHMENT_S3_BUCKET_NAME="kopano-attachments" \
@@ -82,9 +83,7 @@ RUN curl -L https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VE
 	&& rm /tmp/dockerize.tar.gz
 
 # save config files for later usage
-RUN mkdir -p /srv/kopano_default/config/ \
-	&& mkdir -p /srv/kopano_default/plugins/ \
-	&& cp -r /etc/kopano/* /srv/kopano_default/config/ \
+RUN mkdir -p /srv/kopano_default/plugins/ \
 	&& cp -r /usr/share/kopano-webapp/plugins/* /srv/kopano_default/plugins/
 
 ADD templates /srv/templates

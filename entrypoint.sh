@@ -6,11 +6,10 @@
 #############################################################
 
 # copy default config files (necessary to recreate config folder when bind as docker volume)
-cp -r -n /srv/kopano_default/config/* /etc/kopano/
 cp -r -n /srv/kopano_default/plugins/* /usr/share/kopano-webapp/plugins/
 
 #copy templates to kopnao config folder
-dockerize -template /srv/templates/kopano/config-templates:/etc/kopano
+dockerize  -no-overwrite -template /srv/templates/kopano/config-templates:/etc/kopano
 
 # edit kopano-autorepond
 cat /srv/templates/kopano/kopano-autorespond.py > /usr/sbin/kopano-autorespond
