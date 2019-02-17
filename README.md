@@ -13,7 +13,7 @@ CREATE DATABASE kopano;
 CREATE DATABASE zpush;
 ```
 
-create a user which access rights to both schemata:
+Create a user which access rights to both schemata:
 ```sh
 CREATE USER 'kopano'@'%' IDENTIFIED BY 'password';
 GRANT ALL PRIVILEGES ON kopano.* TO 'kopano'@'%';
@@ -36,7 +36,8 @@ docker run -d \
         -e DB_HOST=<DB_HOST> \
         -e DB_USER=<DB_USER> \
         -e DB_PASS=<DB_PASSWORD> \
-        -e DB_NAME=<DB_NAME> \
+        -e DB_NAME=kopano \
+        -e DB_NAME_ZPUSH=zpush \
         -e DOMAIN=<MAIL_DOMAIN> \
         -e SMTP_SERVER=<SMTP_HOST> \
         --hostname <HOSTNAME> \
@@ -60,19 +61,30 @@ docker run -d \
         -v <BASE_PATH>/mailexport/:/tmp/mailexport/ \
         -v <BASE_PATH>/conf/:/etc/kopano/ \
         -v <BASE_PATH>/search/:/var/lib/kopano/search/ \
+         -v <BASE_PATH>/attachments/:/var/lib/kopano/attachments \
         <image>:<version>
 ```
 # Configuration
-#### Optional Parameters:
+#### Parameters:
 Parameter | Function| Default Value|
 ---|---|---|
-DB_NAME_ZPUSH |zpush database name | zpush
-NGINX_API_KEY |uses the nginx amplify agent to monitor the php instance  | -
-TIMEZONE|set the timezone|Europe/Berlin
-PHP_UPLOAD_MAX_FILESIZE|[upload_max_filesize](http://php.net/manual/de/ini.core.php#ini.upload-max-filesize)| 2030M |
-PHP_POST_MAX_SIZE|[post_max_size](http://php.net/manual/de/ini.core.php#ini.post-max-size)| 2040M |
-PHP_MEMORY_LIMIT|[memory_limit](http://php.net/manual/de/ini.core.php#ini.memory-limit)| 2048M |
-FPM_MAX_CHILDREN|[max_children](http://php.net/manual/en/install.fpm.configuration.php)|40
+DB_HOST|database host|
+DB_PORT|database port|3006
+DB_NAMEkopano datbase name|kopano
+DB_NAME_ZPUSH|z-push datbase name|kopano
+DB_USER|database user|kopano
+DB_PASS|database password|kopano
+LOG_LEVEL|log level (1[ERROR] - 6[DEBUG])|3
+TIMEZONE|timezone|Europe/Berlin
+SMTP_SERVER|used smtp server|
+LANG|kopano and system language|de_DE.UTF-8
+ATTACHMENT_STORAGE|attachment storage configuaration [database,files, s3]|database
+ATTACHMENT_S3_HOSTNAME|when ATTACHMENT_STORAGE=s3, s3 hostname |
+ATTACHMENT_S3_PROTOCOL|when ATTACHMENT_STORAGE=s3, s3 access protocol | http
+ATTACHMENT_S3_ACCESS_KEY|when ATTACHMENT_STORAGE=s3, s3 access key (user) |
+ATTACHMENT_S3_SECRET_ACCESS_KEY|when ATTACHMENT_STORAGE=s3, s3 secret access key (password) |
+ATTACHMENT_S3_BUCKET_NAME|when ATTACHMENT_STORAGE=s3, s3 bucket name | kopano-attachments
+
 
 #### Ports
  The following ports can be exposed:
@@ -89,7 +101,7 @@ Port | Function
  To configure kopano, you can use the offical [documentation](https://documentation.kopano.io/). The config files are located under /etc/kopano/.
 
 # Implementation details
-This image is based on debian:9.4-slim. When build it uses the kopano repository to download the latest version of the following packages:
+This image is based on debian:9.6. When build it uses the kopano repository to download the latest version of the following packages:
 - kopano-core
 - kopano-webapp
 - kopano-files
@@ -105,9 +117,9 @@ This image is based on debian:9.4-slim. When build it uses the kopano repository
 - kopano-webapp-plugin-mdm
 - kopano-webapp-plugin-spell-de-de
 - kopano-webapp-plugin-spell-en
-- kopano-webapp-plugin-webappmanual
 - z-push-kopano (to enable active sync)
 - z-push-state-sql
+- z-push-kopano-gabsync
 #### Spam export
 Every day at 01:00 there will be an automatic spam export to **/tmp/spamexport**. Every Mail of the last 24h from every user account will be copied to this to this folder as EML-File. You can persist the folder for further spam evaulation for example to train spam detection.
 
