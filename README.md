@@ -69,7 +69,7 @@ docker run -d \
 Parameter | Function| Default Value|
 ---|---|---|
 DB_HOST|database host|
-DB_PORT|database port|3006
+DB_PORT|database port|3306
 DB_NAMEkopano datbase name|kopano
 DB_NAME_ZPUSH|z-push datbase name|kopano
 DB_USER|database user|kopano
