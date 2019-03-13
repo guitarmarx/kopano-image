@@ -70,7 +70,7 @@ Parameter | Function| Default Value|
 ---|---|---|
 DB_HOST|database host|
 DB_PORT|database port|3306
-DB_NAMEkopano datbase name|kopano
+DB_NAME|kopano datbase name|kopano
 DB_NAME_ZPUSH|z-push datbase name|kopano
 DB_USER|database user|kopano
 DB_PASS|database password|kopano
