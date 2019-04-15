@@ -16,7 +16,7 @@ pipeline {
                 script {
                     properties = readProperties file:'docker.info';
                     imageName = dockerRegistry + "/" + properties.name + ":" + properties.version
-                    sh "docker build --no-cache --build-arg  KOPANO_SERIAL=ZN4EG01D4EN93N2R90JLCJZZ4  -t $imageName"
+                    sh "docker build --no-cache --build-arg  KOPANO_SERIAL=ZN4EG01D4EN93N2R90JLCJZZ4  -t $imageName ."
                 }
             }
         }
