@@ -24,7 +24,7 @@ pipeline {
         stage('Push image') {
             steps {
                  withDockerRegistry([ credentialsId: 'docker-registry-credential', url: 'https://' + dockerRegistry ]) {
-                    sh 'docker push $imageName'
+                    sh "docker push $imageName"
                 }
             }
         }
