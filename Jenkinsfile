@@ -5,7 +5,7 @@ def imageName = null
 
 
 pipeline {
-    agent any
+    agent {label build}
     environment{
         dockerRegistry='registry.meteorit-leipzig.de'
     }
