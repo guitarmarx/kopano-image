@@ -7,8 +7,7 @@ EXPOSE 993 80 2003
 #has to be specified at build time
 ARG	KOPANO_SERIAL=""
 
-ENV	DOMAIN="" \
-	DB_HOST="" \
+ENV	DB_HOST="" \
 	DB_NAME=kopano \
 	DB_USER=kopano \
 	DB_PASS=kopano \

@@ -38,7 +38,6 @@ docker run -d \
         -e DB_PASS=<DB_PASSWORD> \
         -e DB_NAME=kopano \
         -e DB_NAME_ZPUSH=zpush \
-        -e DOMAIN=<MAIL_DOMAIN> \
         -e SMTP_SERVER=<SMTP_HOST> \
         --hostname <HOSTNAME> \
         <image>:<version>
@@ -54,7 +53,6 @@ docker run -d \
         -e DB_USER=<DB_USER> \
         -e DB_PASS=<DB_PASSWORD> \
         -e DB_NAME=<DB_NAME> \
-        -e DOMAIN=<MAIL_DOMAIN> \
         -e SMTP_SERVER=<SMTP_HOST> \
         --hostname <HOSTNAME> \
         -v /etc/localtime:/etc/localtime,ro \
