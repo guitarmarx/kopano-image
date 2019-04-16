@@ -26,7 +26,8 @@ ENV	DB_HOST="" \
 	DEBIAN_FRONTEND=noninteractive \
 	TIMEZONE="Europe/Berlin" \
 	DOCKERIZE_VERSION=v0.6.1 \
-	LANG=de_DE.UTF-8
+	LANG=de_DE.UTF-8 \
+	MAJOR_VERSION=8.7
 
 # gerneral packages
 RUN apt update \
@@ -49,10 +50,10 @@ RUN sed -i -e "s/# $LANG UTF-8/$LANG UTF-8/" /etc/locale.gen \
 	&& locale-gen
 
 # kopano installation
-RUN echo "deb https://serial:$KOPANO_SERIAL@download.kopano.io/supported/core:/final/Debian_9.0/ ./"  >> /etc/apt/sources.list.d/kopano-core.list \
-	&& echo "deb https://serial:$KOPANO_SERIAL@download.kopano.io/supported/webapp:/final/Debian_9.0/ ./"  >> /etc/apt/sources.list.d/kopano-core.list \
-	&& echo "deb https://serial:$KOPANO_SERIAL@download.kopano.io/supported/files:/final/Debian_9.0/ ./"  >> /etc/apt/sources.list.d/kopano-core.list \
-	&& echo "deb https://serial:$KOPANO_SERIAL@download.kopano.io/supported/mdm:/final/Debian_9.0/ ./"  >> /etc/apt/sources.list.d/kopano-core.list \
+RUN echo "deb https://serial:$KOPANO_SERIAL@download.kopano.io/supported/core:/$MAJOR_VERSION/Debian_9.0/ ./"  >> /etc/apt/sources.list.d/kopano-core.list \
+	&& echo "deb https://serial:$KOPANO_SERIAL@download.kopano.io/supported/webapp:/$MAJOR_VERSION/Debian_9.0/ ./"  >> /etc/apt/sources.list.d/kopano-core.list \
+	&& echo "deb https://serial:$KOPANO_SERIAL@download.kopano.io/supported/files:/$MAJOR_VERSION/Debian_9.0/ ./"  >> /etc/apt/sources.list.d/kopano-core.list \
+	&& echo "deb https://serial:$KOPANO_SERIAL@download.kopano.io/supported/mdm:/$MAJOR_VERSION/Debian_9.0/ ./"  >> /etc/apt/sources.list.d/kopano-core.list \
 	&& echo "deb http://repo.z-hub.io/z-push:/final/Debian_9.0/ /" >>  /etc/apt/sources.list.d/z-push.list \
 	&& curl http://repo.z-hub.io/z-push:/final/Debian_9.0/Release.key | apt-key add - \
 	&& apt update \
