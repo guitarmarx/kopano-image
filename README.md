@@ -1,6 +1,6 @@
 # Kopano-Image
 
-this docker image deploys kopano based on nginx und php-fpm-7.
+this docker image deploys kopano based on apache and php
 **Note:** You need a `kopano serial key` to build and use kopano.
 
 #### Requirements
