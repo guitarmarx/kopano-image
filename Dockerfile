@@ -42,6 +42,7 @@ RUN apt update \
 	locales \
 	apache2 \
 	libapache2-mod-php7.0 \
+	net-tools \
 	&& rm -rf  /var/cache/apt  /var/lib/apt/lists/*
 
 # set locale
