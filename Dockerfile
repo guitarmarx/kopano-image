@@ -54,7 +54,7 @@ RUN echo "deb https://serial:$KOPANO_SERIAL@download.kopano.io/supported/core:/f
 	&& echo "deb https://serial:$KOPANO_SERIAL@download.kopano.io/supported/files:/final/Debian_9.0/ ./"  >> /etc/apt/sources.list.d/kopano-core.list \
 	&& echo "deb https://serial:$KOPANO_SERIAL@download.kopano.io/supported/mdm:/final/Debian_9.0/ ./"  >> /etc/apt/sources.list.d/kopano-core.list \
 	&& echo "deb http://repo.z-hub.io/z-push:/final/Debian_9.0/ /" >>  /etc/apt/sources.list.d/z-push.list \
-	&& curl http://repo.z-hub.io/z-push:/final/Debian_9.0/Release.key | apt-key add - \
+	&& curl https://repo.z-hub.io/z-push:/final/Debian_9.0/Release.key | apt-key add - \
 	&& apt update \
 	&& apt install -y  --no-install-recommends \
 	kopano-server-packages \
