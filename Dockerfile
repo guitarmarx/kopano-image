@@ -1,8 +1,8 @@
-FROM debian:9.6
+FROM debian:9.11-slim
 
 LABEL maintainer="meteorIT GbR Marcus Kastner"
 
-EXPOSE 993 80 2003
+EXPOSE 143 80 2003
 
 #has to be specified at build time
 ARG	KOPANO_SERIAL=""
@@ -26,8 +26,7 @@ ENV	DB_HOST="" \
 	DEBIAN_FRONTEND=noninteractive \
 	TIMEZONE="Europe/Berlin" \
 	DOCKERIZE_VERSION=v0.6.1 \
-	LANG=de_DE.UTF-8 \
-	MAJOR_CORE_VERSION=8.7
+	LANG=de_DE.UTF-8
 
 # gerneral packages
 RUN apt update \
@@ -50,7 +49,7 @@ RUN sed -i -e "s/# $LANG UTF-8/$LANG UTF-8/" /etc/locale.gen \
 	&& locale-gen
 
 # kopano installation
-RUN echo "deb https://serial:$KOPANO_SERIAL@download.kopano.io/supported/core:/$MAJOR_CORE_VERSION/Debian_9.0/ ./"  >> /etc/apt/sources.list.d/kopano-core.list \
+RUN echo "deb https://serial:$KOPANO_SERIAL@download.kopano.io/supported/core:/final/Debian_9.0/ ./"  >> /etc/apt/sources.list.d/kopano-core.list \
 	&& echo "deb https://serial:$KOPANO_SERIAL@download.kopano.io/supported/webapp:/final/Debian_9.0/ ./"  >> /etc/apt/sources.list.d/kopano-core.list \
 	&& echo "deb https://serial:$KOPANO_SERIAL@download.kopano.io/supported/files:/final/Debian_9.0/ ./"  >> /etc/apt/sources.list.d/kopano-core.list \
 	&& echo "deb https://serial:$KOPANO_SERIAL@download.kopano.io/supported/mdm:/final/Debian_9.0/ ./"  >> /etc/apt/sources.list.d/kopano-core.list \
@@ -89,7 +88,7 @@ RUN mkdir -p /srv/kopano_default/config/ \
 	&& cp -r /usr/share/kopano-webapp/plugins/* /srv/kopano_default/plugins/
 
 ADD templates /srv/templates
-ADD entrypoint.sh /srv
+ADD scripts /srv/scripts
 
 #edit Config Files
 RUN sed -i "s|LANG.*|LANG=$LANG|g" /etc/apache2/envvars \
@@ -108,6 +107,7 @@ RUN mkdir -p /var/log/kopano/ \
 
 # set timezone
 RUN ln -snf /usr/share/zoneinfo/$TIMEZONE /etc/localtime && echo $TIMEZONE > /etc/timezone \
-	&& chmod 777 /srv/entrypoint.sh
+	&& chmod 777 /srv/scripts/*
 
-ENTRYPOINT ["/srv/entrypoint.sh"]
+HEALTHCHECK CMD bash /srv/scripts/healthcheck.sh
+ENTRYPOINT ["/srv/scripts/entrypoint.sh"]
