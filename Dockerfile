@@ -96,7 +96,7 @@ RUN sed -i "s|LANG.*|LANG=$LANG|g" /etc/apache2/envvars \
 	&& phpenmod kopano \
 	&& cp /srv/templates/cron/crontab /etc/crontab \
 	&& chown -R www-data:www-data /var/lib/z-push \
-	&& chown -R www-data:www-data /var/log/z-push
+	&& chown -R www-data:www-data /var/log/z-push \
 	&& chown -R www-data:www-data /etc/z-push
 
 
