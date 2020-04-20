@@ -10,7 +10,7 @@ cp -r -n /srv/kopano_default/config/* /etc/kopano/
 cp -r -n /srv/kopano_default/plugins/* /usr/share/kopano-webapp/plugins/
 
 # set rights
-chmod -R kopano:kopano /var/lib/kopano/
+chown -R kopano:kopano /var/lib/kopano/
 
 #copy templates to kopnao config folder
 dockerize  -no-overwrite -template /srv/templates/kopano/config-templates:/etc/kopano
