@@ -12,9 +12,9 @@ jobs:
       env:
         KOPANO_SERIAL: ${{ secrets.KOPANO_SERIAL }}
       with:
-        name: https://registry.meteorit-leipzig.de
+        name:  registry.meteorit-leipzig.de/kopano
+        registry: registry.meteorit-leipzig.de
         username: ${{ secrets.REGISTRY_USER }}
         password: ${{ secrets.REGISTRY_PASSWORD }}
-        description: registry.meteorit-leipzig.de/kopano
         buildargs:  KOPANO_SERIAL
         tags: "${{ env.RELEASE_VERSION }}"
