@@ -41,7 +41,7 @@ RUN apt update \
 	tar \
 	locales \
 	apache2 \
-	libapache2-mod-php7.4 \
+	libapache2-mod-php7.0 \
 	net-tools \
 	&& rm -rf  /var/cache/apt  /var/lib/apt/lists/*
 
