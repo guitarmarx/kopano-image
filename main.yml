@@ -1,0 +1,20 @@
+name: Publish Docker
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: get version
+      run: echo ::set-env name=RELEASE_VERSION::$(echo ${GITHUB_REF:10})
+    - name: Publish to Registry
+      uses: elgohr/Publish-Docker-Github-Action@master
+      env:
+        KOPANO_SERIAL: ${{ secrets.KOPANO_SERIAL }}
+      with:
+        name: https://registry.meteorit-leipzig.de
+        username: ${{ secrets.REGISTRY_USER }}
+        password: ${{ secrets.REGISTRY_PASSWORD }}
+        description: registry.meteorit-leipzig.de/kopano
+        buildargs:  KOPANO_SERIAL
+        tags: "${{ env.RELEASE_VERSION }}"
