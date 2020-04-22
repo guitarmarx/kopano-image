@@ -1,11 +1,14 @@
-FROM debian:9.12-slim
+FROM ubuntu:18.04
 
 LABEL maintainer="meteorIT GbR Marcus Kastner"
 
 EXPOSE 143 80 2003
 
 #has to be specified at build time
-ARG	KOPANO_SERIAL=""
+ARG	KOPANO_SERIAL="" \
+	DOCKERIZE_VERSION=v0.6.1 \
+	KOPANO_REPO=Ubuntu_18.04
+
 
 ENV	DB_HOST="" \
 	DB_NAME=kopano \
@@ -25,7 +28,6 @@ ENV	DB_HOST="" \
 	MESSAGE_TO_ME=True \
 	DEBIAN_FRONTEND=noninteractive \
 	TIMEZONE="Europe/Berlin" \
-	DOCKERIZE_VERSION=v0.6.1 \
 	LANG=de_DE.UTF-8
 
 # gerneral packages
@@ -41,7 +43,7 @@ RUN apt update \
 	tar \
 	locales \
 	apache2 \
-	libapache2-mod-php7.0 \
+	libapache2-mod-php \
 	net-tools \
 	&& rm -rf  /var/cache/apt  /var/lib/apt/lists/*
 
@@ -50,12 +52,12 @@ RUN sed -i -e "s/# $LANG UTF-8/$LANG UTF-8/" /etc/locale.gen \
 	&& locale-gen
 
 # kopano installation
-RUN echo "deb https://serial:$KOPANO_SERIAL@download.kopano.io/supported/core:/final/Debian_9.0/ ./"  >> /etc/apt/sources.list.d/kopano.list \
-	&& echo "deb https://serial:$KOPANO_SERIAL@download.kopano.io/supported/webapp:/final/Debian_9.0/ ./"  >> /etc/apt/sources.list.d/kopano.list \
-	&& echo "deb https://serial:$KOPANO_SERIAL@download.kopano.io/supported/files:/final/Debian_9.0/ ./"  >> /etc/apt/sources.list.d/kopano.list \
-	&& echo "deb https://serial:$KOPANO_SERIAL@download.kopano.io/supported/mdm:/final/Debian_9.0/ ./"  >> /etc/apt/sources.list.d/kopano.list \
-	&& echo "deb http://repo.z-hub.io/z-push:/final/Debian_9.0/ /" >>  /etc/apt/sources.list.d/z-push.list \
-	&& curl https://repo.z-hub.io/z-push:/final/Debian_9.0/Release.key | apt-key add - \
+RUN echo "deb https://serial:$KOPANO_SERIAL@download.kopano.io/supported/core:/final/$KOPANO_REPO/ ./"  >> /etc/apt/sources.list.d/kopano.list \
+	&& echo "deb https://serial:$KOPANO_SERIAL@download.kopano.io/supported/webapp:/final/$KOPANO_REPO/ ./"  >> /etc/apt/sources.list.d/kopano.list \
+	&& echo "deb https://serial:$KOPANO_SERIAL@download.kopano.io/supported/files:/final/$KOPANO_REPO/ ./"  >> /etc/apt/sources.list.d/kopano.list \
+	&& echo "deb https://serial:$KOPANO_SERIAL@download.kopano.io/supported/mdm:/final/$KOPANO_REPO/ ./"  >> /etc/apt/sources.list.d/kopano.list \
+	&& echo "deb http://repo.z-hub.io/z-push:/final/$KOPANO_REPO/ /" >>  /etc/apt/sources.list.d/z-push.list \
+	&& curl https://repo.z-hub.io/z-push:/final/$KOPANO_REPO/Release.key | apt-key add - \
 	&& apt update \
 	&& apt install -y  --no-install-recommends \
 	kopano-server-packages \
