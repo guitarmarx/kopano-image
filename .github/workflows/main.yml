@@ -5,14 +5,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
-    - name: Publish to Registry
-      uses: elgohr/Publish-Docker-Github-Action@master
+    - name: Build and Publish
+      uses: jerray/publish-docker-action@v1.0.4
       env:
         KOPANO_SERIAL: ${{ secrets.KOPANO_SERIAL }}
       with:
-        name:  registry.meteorit-leipzig.de/kopano
         registry: registry.meteorit-leipzig.de
+        repository: kopano
         username: ${{ secrets.REGISTRY_USER }}
         password: ${{ secrets.REGISTRY_PASSWORD }}
-        buildargs:  KOPANO_SERIAL
-        tag_names: true
+        build_args:  KOPANO_SERIAL
+        auto_tag: true
