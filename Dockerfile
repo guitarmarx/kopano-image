@@ -5,9 +5,9 @@ LABEL maintainer="meteorIT GbR Marcus Kastner"
 EXPOSE 143 80 2003
 
 #has to be specified at build time
-ARG	KOPANO_SERIAL="" \
-	DOCKERIZE_VERSION=v0.6.1 \
-	KOPANO_REPO=Ubuntu_18.04
+ARG	KOPANO_SERIAL=""
+ARG	DOCKERIZE_VERSION=v0.6.1
+ARG	KOPANO_REPO=Ubuntu_18.04
 
 
 ENV	DB_HOST="" \
