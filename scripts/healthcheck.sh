@@ -11,8 +11,8 @@ ps -C kopano-search || exit 1
 ps -C apache2 || exit 1
 
 # check ports
-netstat -plnt | grep ':80' || exit 1
 netstat -plnt | grep ':2003' || exit 1
+netstat -plnt | grep ':80' || exit 1
 
 
 exit 0

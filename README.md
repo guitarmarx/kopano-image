@@ -123,5 +123,9 @@ Every day at 01:00 there will be an automatic spam export to **/tmp/spamexport**
 
 
 
+## Comands
+
+kopano-localize-folders -u <user> --lang de_DE.utf8
+
 
 

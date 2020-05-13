@@ -36,9 +36,9 @@
  * STATE_SQL_OPTIONS:   array with options needed
  */
 define('STATE_SQL_ENGINE', 'mysql');
-define('STATE_SQL_SERVER', '{{.Env.DB_HOST}}');
-define('STATE_SQL_PORT', '{{.Env.DB_PORT}}');
-define('STATE_SQL_DATABASE', '{{.Env.DB_NAME_ZPUSH}}');
-define('STATE_SQL_USER', '{{.Env.DB_USER}}');
-define('STATE_SQL_PASSWORD', '{{.Env.DB_PASS}}');
+define('STATE_SQL_SERVER', '{{.Env.MYSQL_HOST}}');
+define('STATE_SQL_PORT', '{{.Env.MYSQL_PORT}}');
+define('STATE_SQL_DATABASE', '{{.Env.MYSQL_DATABASE_ZPUSH}}');
+define('STATE_SQL_USER', '{{.Env.MYSQL_USER}}');
+define('STATE_SQL_PASSWORD', '{{.Env.MYSQL_PASSWORD}}');
 define('STATE_SQL_OPTIONS', serialize(array(PDO::ATTR_PERSISTENT => true)));
