@@ -29,6 +29,7 @@ ENV DEBIAN_FRONTEND=noninteractive \
     SMTP_SERVER=localhost \
     SMTP_PORT=25 \
     TIMEZONE="Europe/Berlin" \
+    USE_FULLEMAIL_FOR_LOGIN=true \
     THEME=""
 
 
@@ -114,7 +115,7 @@ RUN mkdir -p /run/php && chown www-data:www-data /run/php \
     && crudini --set /etc/php/7.0/fpm/php.ini Session session.save_path /run/sessions
 
 # configure z-push
-RUN mkdir -p /var/lib/z-push /var/log/z-push \
+RUN mkdir -p /var/lib/z-push /var/log/z-push /srv/plugins \
     && touch /var/log/z-push/z-push-error.log /var/log/z-push/z-push.log \
     && chown www-data:www-data /var/lib/z-push /var/log/z-push
 

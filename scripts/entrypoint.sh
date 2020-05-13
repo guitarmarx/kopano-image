@@ -10,8 +10,10 @@ cp -r /srv/plugins/* /usr/share/kopano-webapp/plugins/
 
 # edit z-push.conf.php
 TIMEZONE=${TIMEZONE//\//\\/}
-sed -i "s/('TIMEZONE', '')/('TIMEZONE', '$TIMEZONE');/g" /etc/z-push/z-push.conf.php
+sed -i "s/('TIMEZONE', '')/('TIMEZONE', '$TIMEZONE');/g" /etc/z-push/*
 sed -i "s/('STATE_MACHINE'.*/('STATE_MACHINE', 'SQL');/g" /etc/z-push/z-push.conf.php
+sed -i "s/('USE_FULLEMAIL_FOR_LOGIN'.*/('USE_FULLEMAIL_FOR_LOGIN', 'true');/g" /etc/z-push/autodiscover.conf.php
+
 
 # edit Apache Alias
 sed -i "s|Alias.*|Alias / /usr/share/kopano-webapp/|g" /etc/apache2/sites-available/kopano-webapp.conf
