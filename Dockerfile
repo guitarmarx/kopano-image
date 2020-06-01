@@ -79,7 +79,7 @@ RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \
     update-locale LANG=de_DE.UTF-8
 
 # install kopano  packages
-RUN apt update \
+RUN apt update -o Acquire::https::repo.z-hub.io::Verify-Peer=false \
     && apt install --no-install-recommends -y \
         kopano-server-packages \
         apache2 \
@@ -93,8 +93,6 @@ RUN apt update \
         kopano-webapp-plugin-folderwidgets \
         kopano-webapp-plugin-mdm \
         kopano-webapp-plugin-quickitems \
-        kopano-webapp-plugin-spell-de-de \
-        kopano-webapp-plugin-spell-en \
         kopano-webapp-plugin-titlecounter \
         php-mbstring \
         libapache2-mod-php \
