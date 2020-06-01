@@ -80,7 +80,7 @@ RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \
 
 # install kopano  packages
 RUN apt update -o Acquire::https::repo.z-hub.io::Verify-Peer=false \
-    && apt install --no-install-recommends -y \
+    && apt install --no-install-recommends -y -o Acquire::https::repo.z-hub.io::Verify-Peer=false \
         kopano-server-packages \
         apache2 \
         php-fpm \
