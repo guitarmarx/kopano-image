@@ -26,6 +26,7 @@ ENV DEBIAN_FRONTEND=noninteractive \
 	ATTACHMENT_S3_ACCESS_KEY="" \
 	ATTACHMENT_S3_SECRET_ACCESS_KEY="" \
 	ATTACHMENT_S3_BUCKET_NAME="kopano-attachments"\
+    DISABLED_FEATURES="imap pop3" \
     SMTP_SERVER=localhost \
     SMTP_PORT=25 \
     TIMEZONE="Europe/Berlin" \
