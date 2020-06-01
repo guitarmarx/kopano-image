@@ -61,7 +61,7 @@ RUN echo "deb https://serial:$KOPANO_SERIAL@download.kopano.io/supported/core:/f
 	&& echo "deb https://serial:$KOPANO_SERIAL@download.kopano.io/supported/mdm:/final/$OS_VERSION/ ./"  >> /etc/apt/sources.list.d/kopano.list \
     && echo "deb http://repo.z-hub.io/z-push:/final/$OS_VERSION/ /" >>  /etc/apt/sources.list.d/z-push.list \
     && curl -s -S -o - "https://serial:$KOPANO_SERIAL@download.kopano.io/supported/core:/final/$OS_VERSION/Release.key" | apt-key add - \
-	&& curl https://repo.z-hub.io/z-push:/final/$OS_VERSION/Release.key | apt-key add -
+	&& curl -s -S -k -o - "https://repo.z-hub.io/z-push:/final/$OS_VERSION/Release.key" | apt-key add -
 
 # Create kopano user and group
 RUN groupadd --system --gid ${KOPANO_GID} kopano \
