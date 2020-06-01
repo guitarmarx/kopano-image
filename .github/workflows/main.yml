@@ -6,7 +6,7 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: Build and Publish
-      uses: jerray/publish-docker-action@v1.0.4
+      uses: jerray/publish-docker-action@v1.0.5
       env:
         KOPANO_SERIAL: ${{ secrets.KOPANO_SERIAL }}
       with:
