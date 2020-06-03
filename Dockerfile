@@ -115,8 +115,7 @@ RUN mkdir -p /run/php && chown www-data:www-data /run/php \
 
 # configure z-push
 RUN mkdir -p /var/lib/z-push /var/log/z-push /srv/plugins \
-    && touch /var/log/z-push/z-push-error.log /var/log/z-push/z-push.log \
-    && chown www-data:www-data /var/lib/z-push /var/log/z-push /var/log/z-push/*
+    && chown www-data:www-data /var/lib/z-push /var/log/z-push
 
 
 HEALTHCHECK CMD bash /srv/scripts/healthcheck.sh

@@ -40,6 +40,7 @@ kopano-search
 php-fpm7.0
 service apache2 start
 
-# send log output to docker sstout
-sleep 5
+# wait for log creation
+sleep 10 
+
 tail -f  /var/log/kopano/*  /var/log/z-push/*
