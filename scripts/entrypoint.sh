@@ -41,6 +41,6 @@ service apache2 start
 service cron start
 
 # wait for log creation
-sleep 10 
+sleep 15
 
 tail -f  /var/log/kopano/*  /var/log/z-push/*
