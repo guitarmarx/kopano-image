@@ -4,6 +4,7 @@
 dockerize -template /srv/templates/core/:/etc/kopano/
 dockerize -template /srv/templates/webapp/:/etc/kopano/webapp
 dockerize -template /srv/templates/zpush/:/etc/z-push/
+mv  /srv/templates/cron/crontab:/etc/crontab
 
 #copy additional pluggins
 cp -r /srv/plugins/* /usr/share/kopano-webapp/plugins/
@@ -30,15 +31,14 @@ echo "waiting for connection to database ...  "
 dockerize -wait tcp://$MYSQL_HOST:$MYSQL_PORT
 
 kopano-server
-
 kopano-dagent -d
 kopano-spooler
 kopano-gateway
 kopano-ical
 kopano-search
-
 php-fpm7.0
 service apache2 start
+service cron start
 
 # wait for log creation
 sleep 10 

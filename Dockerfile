@@ -44,6 +44,7 @@ RUN apt-get update && \
         apt-utils \
         ca-certificates \
         curl \
+		cron \
         gpg \
         gpg-agent \
         jq \
