@@ -10,9 +10,9 @@ ARG KOPANO_SERIAL=""
 ARG OS_VERSION=Ubuntu_20.04
 ARG	DOCKERIZE_VERSION=v0.6.1
 ARG DEBIAN_FRONTEND=noninteractive
+ARG LANG=de_DE.UTF-8
 
-ENV LANG=de_DE.UTF-8 \
-    LOG_LEVEL=3 \
+ENV LOG_LEVEL=3 \
     MYSQL_HOST="<database_host>" \
     MYSQL_PORT=3306 \
     MYSQL_USER=kopano \
@@ -76,13 +76,13 @@ RUN curl -L https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VE
 	&& rm /tmp/dockerize.tar.gz
 
 # install locales & time
-RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \
-    sed -i -e 's/# de_DE.UTF-8 UTF-8/de_DE.UTF-8 UTF-8/' /etc/locale.gen && \
-    dpkg-reconfigure --frontend=noninteractive locales \
-    && update-locale LANG=de_DE.UTF-8 \
+RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen \
+    && sed -i -e 's/# de_DE.UTF-8 UTF-8/de_DE.UTF-8 UTF-8/' /etc/locale.gen \
+    && dpkg-reconfigure --frontend=noninteractive locales \
+    && update-locale LANG=$LANG \
     && ln -fs /usr/share/zoneinfo/Europe/Berlin /etc/localtime \
     && apt update && apt  install -y tzdata \
-     && rm -rf /var/cache/apt /var/lib/apt/lists/* \
+    && rm -rf /var/cache/apt /var/lib/apt/lists/* \
     && dpkg-reconfigure --frontend noninteractive tzdata
 
 # install kopano  packages
@@ -114,10 +114,10 @@ RUN phpenmod kopano
 
 # configure php-fpm
 RUN mkdir -p /run/php && chown www-data:www-data /run/php \
-    && crudini --set /etc/php/7.3/fpm/php.ini PHP upload_max_filesize 500M \
-    && crudini --set /etc/php/7.3/fpm/php.ini PHP post_max_size 500M  \
-    && crudini --set /etc/php/7.3/fpm/php.ini PHP max_input_vars 1800 \
-    && crudini --set /etc/php/7.3/fpm/php.ini Session session.save_path /run/sessions
+    && crudini --set /etc/php/7.4/fpm/php.ini PHP upload_max_filesize 500M \
+    && crudini --set /etc/php/7.4/fpm/php.ini PHP post_max_size 500M  \
+    && crudini --set /etc/php/7.4/fpm/php.ini PHP max_input_vars 1800 \
+    && crudini --set /etc/php/7.4/fpm/php.ini Session session.save_path /run/sessions
 
 # configure z-push
 RUN mkdir -p /var/lib/z-push /var/log/z-push /srv/plugins \
