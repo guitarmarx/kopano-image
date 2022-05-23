@@ -40,8 +40,8 @@ ADD templates /srv/templates
 ADD scripts /srv/scripts
 
 # install basics
-RUN apt-get update && \
-    apt-get install --no-install-recommends -y \
+RUN apt update && \
+    apt install --no-install-recommends -y \
         apt-transport-https \
         apt-utils \
         ca-certificates \
@@ -81,7 +81,8 @@ RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \
     dpkg-reconfigure --frontend=noninteractive locales \
     && update-locale LANG=de_DE.UTF-8 \
     && ln -fs /usr/share/zoneinfo/Europe/Berlin /etc/localtime \
-    && apt-get install -y tzdata \
+    && apt update && apt  install -y tzdata \
+     && rm -rf /var/cache/apt /var/lib/apt/lists/* \
     && dpkg-reconfigure --frontend noninteractive tzdata
 
 # install kopano  packages
