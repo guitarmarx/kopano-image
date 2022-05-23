@@ -36,11 +36,12 @@ kopano-spooler
 kopano-gateway
 kopano-ical
 kopano-search
+kopano-rspamd
 php-fpm7.0
 service apache2 start
 service cron start
 
 # wait for log creation
-sleep 15
+sleep 10
 
 tail -f  /var/log/kopano/*  /var/log/z-push/*
