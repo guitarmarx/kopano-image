@@ -4,7 +4,7 @@
 dockerize -template /srv/templates/core/:/etc/kopano/
 dockerize -template /srv/templates/webapp/:/etc/kopano/webapp
 dockerize -template /srv/templates/zpush/:/etc/z-push/
-mv  /srv/templates/cron/crontab:/etc/crontab
+mv  /srv/templates/cron/crontab /etc/crontab
 
 #copy additional pluggins
 cp -r /srv/plugins/* /usr/share/kopano-webapp/plugins/
@@ -13,8 +13,6 @@ cp -r /srv/plugins/* /usr/share/kopano-webapp/plugins/
 TIMEZONE=${TIMEZONE//\//\\/}
 sed -i "s/('TIMEZONE', '')/('TIMEZONE', '$TIMEZONE');/g" /etc/z-push/*
 sed -i "s/('STATE_MACHINE'.*/('STATE_MACHINE', 'SQL');/g" /etc/z-push/z-push.conf.php
-sed -i "s/('USE_FULLEMAIL_FOR_LOGIN'.*/('USE_FULLEMAIL_FOR_LOGIN', 'true');/g" /etc/z-push/autodiscover.conf.php
-
 
 # edit Apache Alias
 sed -i "s|Alias.*|Alias / /usr/share/kopano-webapp/|g" /etc/apache2/sites-available/kopano-webapp.conf
@@ -36,8 +34,8 @@ kopano-spooler
 kopano-gateway
 kopano-ical
 kopano-search
-kopano-rspamd
-php-fpm7.0
+kopano-spamd
+php-fpm7.4
 service apache2 start
 service cron start
 
