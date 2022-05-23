@@ -100,6 +100,7 @@ RUN apt update  \
         z-push-backend-kopano \
         z-push-state-sql \
         z-push-kopano-gabsync \
+         ca-certificates \
     && rm -rf /var/cache/apt /var/lib/apt/lists/*
 
 # install kopano plugins
