@@ -96,6 +96,8 @@ RUN apt update  \
         kopano-webapp \
         kopano-spamd \
         libapache2-mod-php \
+        z-push-config-apache \
+        z-push-ipc-sharedmemory \
         z-push-common \
         z-push-backend-kopano \
         z-push-state-sql \
