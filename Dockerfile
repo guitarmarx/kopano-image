@@ -85,10 +85,20 @@ RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen \
     && rm -rf /var/cache/apt /var/lib/apt/lists/* \
     && dpkg-reconfigure --frontend noninteractive tzdata
 
+# install de-locale kopano
+RUN apt update \
+    && apt-get download kopano-lang \
+    && dpkg-deb -R kopano-lang_*.deb   kopano-lang \
+    && mv kopano-lang/usr/share/locale/de/LC_MESSAGES/kopano.mo /usr/share/locale/de/LC_MESSAGES/ \
+    && rm kopano-lang_*.deb \
+    && rm -r kopano-lang \
+    && rm -rf /var/cache/apt /var/lib/apt/lists/*
+
 # install kopano  packages
 RUN apt update  \
     && apt install --no-install-recommends -y  \
         kopano-server-packages \
+        kopano-lang \
         libkcoidc-dev \
         apache2 \
         php-fpm \
